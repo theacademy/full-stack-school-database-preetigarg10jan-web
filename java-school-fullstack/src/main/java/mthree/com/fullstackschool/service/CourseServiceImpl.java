@@ -10,49 +10,62 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseServiceInterface {
 
-    //YOUR CODE STARTS HERE
-
-
-
-    //YOUR CODE ENDS HERE
-
-    public List<Course> getAllCourses() {
         //YOUR CODE STARTS HERE
+        @Autowired
+        private CourseDao courseDao;
 
-        return null;
-
+        public CourseServiceImpl(CourseDao courseDao) {
+                this.courseDao = courseDao;
+        }
         //YOUR CODE ENDS HERE
-    }
 
-    public Course getCourseById(int id) {
-        //YOUR CODE STARTS HERE
+        public List<Course> getAllCourses() {
+                //YOUR CODE STARTS HERE
 
-        return null;
+                return courseDao.getAllCourses();
 
-        //YOUR CODE ENDS HERE
-    }
+                //YOUR CODE ENDS HERE
+        }
 
-    public Course addNewCourse(Course course) {
-        //YOUR CODE STARTS HERE
+        public Course getCourseById(int id) {
+                //YOUR CODE STARTS HERE
 
-        return null;
+                try {
+                        return courseDao.findCourseById(id);
+                } catch (DataAccessException ex) {
+                        return null;
+                }
 
-        //YOUR CODE ENDS HERE
-    }
+                //YOUR CODE ENDS HERE
+        }
 
-    public Course updateCourseData(int id, Course course) {
-        //YOUR CODE STARTS HERE
+        public Course addNewCourse(Course course) {
+                //YOUR CODE STARTS HERE
 
-        return null;
+                return courseDao.createNewCourse(course);
 
-        //YOUR CODE ENDS HERE
-    }
+                //YOUR CODE ENDS HERE
+        }
 
-    public void deleteCourseById(int id) {
-        //YOUR CODE STARTS HERE
+        public Course updateCourseData(int id, Course course) {
+                //YOUR CODE STARTS HERE
 
+                course.setCourseId(id);
 
+                // Update the course in the database
+                courseDao.updateCourse(course);
 
-        //YOUR CODE ENDS HERE
-    }
+                // Return the updated course from the database
+                return courseDao.findCourseById(id);
+                //YOUR CODE ENDS HERE
+        }
+
+        public void deleteCourseById(int id) {
+                //YOUR CODE STARTS HERE
+
+                courseDao.deleteAllStudentsFromCourse(id);
+                courseDao.deleteCourse(id);
+
+                //YOUR CODE ENDS HERE
+        }
 }

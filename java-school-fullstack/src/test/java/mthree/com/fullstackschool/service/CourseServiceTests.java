@@ -2,6 +2,7 @@ package mthree.com.fullstackschool.service;
 
 import mthree.com.fullstackschool.dao.CourseDao;
 import mthree.com.fullstackschool.model.Course;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,8 +61,9 @@ public class CourseServiceTests {
         course.setTeacherId(10);
 
         Course upCourse = courseService.updateCourseData(99, course);
-        assertEquals("IDs do not match, course not updated", course.getCourseName());
-        assertEquals("IDs do not match, course not updated", course.getCourseDesc());
+
+        assertEquals("Updated Course Name", course.getCourseName());
+        assertEquals("Updated Course Desc", course.getCourseDesc());
     }
 
     @Test
